@@ -1,0 +1,12 @@
+# Example Phase A audit config. Replace paths after building manifests.
+output_dir: results/dataset_audit
+target_size: 256
+bootstrap_samples: 1000
+min_patients: 10
+seed: 2026
+manifests:
+  - manifests/camus.csv
+  - manifests/mnms.csv
+  - manifests/isic2018.csv
+  - manifests/amos22.csv
+  - manifests/drive.csv

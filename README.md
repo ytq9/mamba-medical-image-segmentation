@@ -1,0 +1,296 @@
+# Mamba Scan Strategies for Low-Label Medical Image Segmentation
+
+This research project studies whether the geometric structure of medical-image
+datasets can explain or predict the relative performance of different Mamba
+scan orders under a fixed 10% labeled-data protocol.
+
+The experiment covers five datasets (CAMUS, M&Ms, ISIC2018, DRIVE, and
+AMOS2022), a CNN baseline, and five controlled Mamba conditions: Raster-H,
+Raster-V, Hilbert, LocalWindow, and RandomPermute. All Mamba conditions use the
+same U-Net-style segmentation backbone and differ only in scan order.
+
+## Project Status
+
+The full matrix of 90 training runs (5 datasets x 6 conditions x 3 seeds) was
+completed on remote SSH GPU infrastructure. This repository contains the full
+experiment code and a local result archive covering 74 runs. The remaining
+remote run artifacts were not recovered into this repository before the
+original SSH instances became unavailable.
+
+The currently archived results support three bounded conclusions:
+
+- Scan order affects segmentation performance.
+- No single Mamba scan strategy consistently outperforms the CNN baseline
+  across all five datasets.
+- RandomPermute is the weakest aggregate Mamba condition, suggesting that
+  structured spatial ordering is useful even when no structured order is
+  universally best.
+
+The proposal and research abstract are available under `papers/`. The archived
+CSV summaries, case-level metrics, run metadata, and figures are packaged in
+`results.zip`; raw medical datasets and trained checkpoints are intentionally
+excluded.
+
+## Repository Contents
+
+```text
+configs/      Dataset and experiment definitions
+notebooks/    Training and visualization control notebook
+papers/       Research proposal and abstract
+scripts/      Manifest, audit, training, evaluation, and plotting entry points
+src/          Scan geometry, models, datasets, metrics, and training code
+tests/        Protocol, model, dataset, audit, and visualization tests
+results.zip   Archived run outputs and analysis summaries (74 runs)
+```
+
+## Workflow
+
+1. Build a unified manifest from a raw dataset folder:
+
+```bash
+python scripts/build_manifest.py \
+  --preset isic2018 \
+  --root /path/to/ISIC2018 \
+  --output manifests/isic2018.csv
+```
+
+Supported presets:
+
+```text
+camus, mnms, isic2018, amos22, drive
+```
+
+2. Audit one or more manifests:
+
+```bash
+python scripts/audit_datasets.py \
+  --manifest manifests/camus.csv manifests/isic2018.csv \
+  --output-dir results/dataset_audit \
+  --target-size 256 \
+  --bootstrap-samples 1000
+```
+
+Or use the example combined config:
+
+```bash
+python scripts/audit_datasets.py --config configs/datasets/phase_a_candidates.yaml
+```
+
+## Outputs
+
+All audit outputs are centralized under `results/dataset_audit/`:
+
+```text
+manifest_validated.csv
+case_geometry.csv
+dataset_geometry.csv
+descriptor_stability.csv
+matching_contrast.csv
+suitability_summary.csv
+```
+
+## Geometry Descriptors
+
+The audit computes:
+
+```text
+D: boundary-orientation entropy
+A_data: 1 - D
+phi_data: dominant axial boundary orientation
+L: normalized multi-scale locality
+S: scale diversity
+B: boundary complexity
+C: connectivity
+```
+
+The primary matching score follows the proposal:
+
+```text
+M_primary(d,s) = 0.5 M_dir(d,s) + 0.5 M_loc(d,s)
+```
+
+It uses only mask-derived dataset descriptors and scan profiles derived from
+the implemented bottleneck scan paths. It does not use Dice, HD95, observed
+ranks, or any model output.
+
+## Development Check
+
+```bash
+python -m pytest -q
+```
+
+## Phase B Protocol
+
+Phase B follows the proposal's locked experimental matrix:
+
+```text
+5 datasets x 6 conditions x 3 seeds x 10% labeled data = 90 runs
+```
+
+A Jupyter control notebook is available for training and visualization:
+
+```bash
+jupyter notebook notebooks/phase_b_training_visualization.ipynb
+```
+
+Create 70/10/20 patient-level or case-level splits and the fixed 10% labeled
+training subset:
+
+```bash
+python scripts/make_splits.py --config configs/experiments/phase_b_10pct.yaml
+```
+
+Generate the run matrix:
+
+```bash
+python scripts/train_matrix.py --config configs/experiments/phase_b_10pct.yaml
+```
+
+Optional command template export for an external trainer:
+
+```bash
+python scripts/train_matrix.py \
+  --config configs/experiments/phase_b_10pct.yaml \
+  --commands-output results/phase_b/train_commands.sh
+```
+
+The run matrix includes `model_config_hash` and `scan_order_hash`. Within each
+dataset, all five Mamba conditions must share the same `model_config_hash`; only
+`scan_order_hash` should differ. This enforces the proposal's scan-order-only
+comparison.
+
+The model layer follows a U-Mamba Bot style design:
+
+```text
+Residual 2D U-Net encoder -> bottleneck ScanMambaLayer -> residual decoder
+```
+
+The five Mamba conditions use the same `ScanMambaLayer` and differ only by:
+
+```text
+Raster-H, Raster-V, Hilbert, LocalWindow, RandomPermute
+```
+
+Phase B training data are read from the split CSV generated by
+`scripts/make_splits.py`. The dataset loader is manifest-driven:
+
+```python
+from scan_geometry.phase_b import ManifestSegmentationDataset
+
+train_set = ManifestSegmentationDataset(
+    "results/phase_b/splits/camus_split.csv",
+    split="train",
+    labeled_only=True,
+    input_channels=1,
+    target_size=256,
+)
+```
+
+It returns:
+
+```text
+image: float32 tensor [C, 256, 256]
+label: int64 tensor [256, 256]
+dataset, case_id, patient_id, slice_index, split, labeled
+```
+
+2D image datasets are loaded one row at a time. 3D volumes are expanded into 2D
+slices at dataset construction time; by default only foreground slices are used.
+
+`mamba_ssm` is required for real Mamba training:
+
+```bash
+python scripts/ensure_mamba_ssm.py
+```
+
+This script first checks `from mamba_ssm import Mamba`; if it already works, it
+skips installation. If not, it installs `causal-conv1d` and `mamba-ssm` with
+`--no-build-isolation` in the current Python environment. On SSH/H100, run this
+once after activating the intended environment.
+
+For metadata and shape smoke tests without `mamba_ssm`, the training adapter has
+an explicit fallback mode:
+
+```bash
+python scripts/train_adapter.py \
+  --config configs/experiments/phase_b_10pct.yaml \
+  --dataset CAMUS \
+  --condition Raster-H \
+  --scan Raster-H \
+  --seed 2026 \
+  --split-file results/phase_b/splits/camus_split.csv \
+  --output-dir /tmp/phase_b_raster_h_dry_run \
+  --dry-run \
+  --allow-mamba-fallback
+```
+
+Run one real Phase B training job from a run-matrix row:
+
+```bash
+python scripts/train_adapter.py \
+  --config configs/experiments/phase_b_10pct.yaml \
+  --dataset CAMUS \
+  --condition Raster-H \
+  --scan Raster-H \
+  --seed 2026 \
+  --split-file results/phase_b/splits/camus_split.csv \
+  --output-dir results/phase_b/runs/camus__raster_h__seed2026
+```
+
+Each run writes:
+
+```text
+config.json
+model_summary.json
+history.json
+checkpoints/best.pt
+metrics.csv
+```
+
+The trainer uses `ManifestSegmentationDataset`, AdamW, Dice + cross-entropy loss,
+validation macro Dice checkpoint selection, and case-level Dice/HD95 test output.
+
+Aggregate case-level test metrics after training. Each metric CSV must contain:
+
+```text
+dataset, condition, seed, case_id, dice, hd95
+```
+
+`class_id` is optional and defaults to `macro`.
+
+```bash
+python scripts/evaluate_runs.py \
+  --runs-csv results/phase_b/runs.csv \
+  --output results/phase_b/metrics_summary.csv
+```
+
+## Visualizations
+
+Generate available Phase A/B/C figures:
+
+```bash
+python scripts/plot_visualizations.py --output-dir results/visualizations
+```
+
+This command is safe before training has finished. It writes
+`visualization_manifest.json`, generates figures whose source CSVs exist, and
+records skipped figures when training metrics are not available yet.
+
+Primary figure outputs:
+
+```text
+scan_profile_geometry.png
+descriptor_correlation.png
+performance_heatmap_dice.png
+scan_ranking_by_dataset.png
+seed_stability.png
+p5_matching_association.png
+```
+
+After training, pass case-level metrics for the P5 plot:
+
+```bash
+python scripts/plot_visualizations.py \
+  --output-dir results/visualizations \
+  --case-metrics results/phase_b/case_metrics.csv
+```

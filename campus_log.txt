@@ -1,0 +1,138 @@
+Opening /Users/munannoka/Desktop/data2/campus/image_dataset.hdf5...
+
+[2CH] sampling 900/900 images...
+  unique labels: [0 1 2 3]
+  20/900 done
+  40/900 done
+  60/900 done
+  80/900 done
+  100/900 done
+  120/900 done
+  140/900 done
+  160/900 done
+  180/900 done
+  200/900 done
+  220/900 done
+  240/900 done
+  260/900 done
+  280/900 done
+  300/900 done
+  320/900 done
+  340/900 done
+  360/900 done
+  380/900 done
+  400/900 done
+  420/900 done
+  440/900 done
+  460/900 done
+  480/900 done
+  500/900 done
+  520/900 done
+  540/900 done
+  560/900 done
+  580/900 done
+  600/900 done
+  620/900 done
+  640/900 done
+  660/900 done
+  680/900 done
+  700/900 done
+  720/900 done
+  740/900 done
+  760/900 done
+  780/900 done
+  800/900 done
+  820/900 done
+  840/900 done
+  860/900 done
+  880/900 done
+  900/900 done
+
+[4CH] sampling 900/900 images...
+  unique labels: [0 1 2 3]
+  20/900 done
+  40/900 done
+  60/900 done
+  80/900 done
+  100/900 done
+  120/900 done
+  140/900 done
+  160/900 done
+  180/900 done
+  200/900 done
+  220/900 done
+  240/900 done
+  260/900 done
+  280/900 done
+  300/900 done
+  320/900 done
+  340/900 done
+  360/900 done
+  380/900 done
+  400/900 done
+  420/900 done
+  440/900 done
+  460/900 done
+  480/900 done
+  500/900 done
+  520/900 done
+  540/900 done
+  560/900 done
+  580/900 done
+  600/900 done
+  620/900 done
+  640/900 done
+  660/900 done
+  680/900 done
+  700/900 done
+  720/900 done
+  740/900 done
+  760/900 done
+  780/900 done
+  800/900 done
+  820/900 done
+  840/900 done
+  860/900 done
+  880/900 done
+  900/900 done
+
+Saved camus_features.csv (1800 rows), camus_per_class.csv (5400 rows)
+
+=== Mean ± std per view ===
+          D             L             S             B             C       
+       mean    std   mean    std   mean    std   mean    std   mean    std
+view                                                                      
+2CH   0.789  0.053  0.986  0.002  0.424  0.247  0.456  0.030  1.001  0.019
+4CH   0.771  0.048  0.985  0.002  0.334  0.228  0.463  0.027  1.001  0.016
+
+=== Pairwise correlations (independence check) ===
+       D      L      S      B      C
+D  1.000 -0.206 -0.148 -0.277  0.029
+L -0.206  1.000  0.573 -0.011  0.042
+S -0.148  0.573  1.000  0.403  0.066
+B -0.277 -0.011  0.403  1.000  0.018
+C  0.029  0.042  0.066  0.018  1.000
+[OK] All |rho|<0.85.
+
+PCA explained variance: PC1=36.8%, PC2=21.7%, sum=58.5%
+PC1 loadings: {'D': np.float64(-0.378), 'L': np.float64(0.523), 'S': np.float64(0.632), 'B': np.float64(0.423), 'C': np.float64(0.072)}
+PC2 loadings: {'D': np.float64(-0.46), 'L': np.float64(-0.49), 'S': np.float64(-0.194), 'B': np.float64(0.56), 'C': np.float64(-0.444)}
+
+=== Per-class mean (D, L, B) ===
+                      D             L             B       
+                   mean    std   mean    std   mean    std
+class_id organ                                            
+1        LV-endo  0.753  0.058  0.977  0.006  0.334  0.070
+2        LV-myo   0.784  0.039  0.956  0.010  0.828  0.038
+3        LA       0.759  0.107  0.971  0.013  0.217  0.062
+
+Saved camus_pca.png
+Saved camus_per_class.png
+
+============================================================
+QUICK VERDICT
+============================================================
+CAMUS mean: D=0.780, L=0.985, S=0.379, B=0.460, C=1.001
+
+Note: LV-myo B = 0.828 vs LV-endo B = 0.334
+(myocardium is annular — high B is the ring shape, not pathology)

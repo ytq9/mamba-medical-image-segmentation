@@ -1,0 +1,125 @@
+# Phase B protocol locked from the proposal.
+# Paths are interpreted relative to the directory where commands are run.
+output_dir: results/phase_b
+phase_a_summary: results/dataset_audit/suitability_summary.csv
+
+split:
+  seed: 2026
+  train: 0.70
+  val: 0.10
+  test: 0.20
+
+low_label:
+  ratio: 0.10
+  min_labeled_train_units: 10
+
+model:
+  architecture: umamba_scan_bot_2d
+  input_size: [256, 256]
+  bottleneck_scan_shape: [32, 32]
+  features: [32, 64, 128, 256]
+  blocks_per_stage: 2
+  num_classes: 2
+  local_window_size: 8
+  scan_seed: 2026
+  cnn_bottleneck_blocks: 1
+  mamba:
+    d_state: 16
+    d_conv: 4
+    expand: 2
+
+training:
+  epochs: 200
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_workers: 8
+  pin_memory: true
+  cache_dir: results/phase_b/cache/preprocessed_256
+  include_empty_slices: false
+  normalize: zscore
+  device: auto
+
+seeds:
+  - 2026
+  - 2027
+  - 2028
+
+conditions:
+  - name: CNN
+    family: cnn_baseline
+    scan: ""
+    description: Non-scanning U-Net reference.
+  - name: Raster-H
+    family: mamba
+    scan: Raster-H
+    description: Horizontal single-pass raster scan.
+  - name: Raster-V
+    family: mamba
+    scan: Raster-V
+    description: Vertical single-pass raster scan.
+  - name: Hilbert
+    family: mamba
+    scan: Hilbert
+    description: Isotropic locality-preserving space-filling scan.
+  - name: LocalWindow
+    family: mamba
+    scan: LocalWindow
+    description: Non-overlapping local-window single-pass scan.
+  - name: RandomPermute
+    family: mamba
+    scan: RandomPermute
+    description: Fixed random permutation negative control.
+
+datasets:
+  - name: CAMUS
+    manifest: manifests/camus.csv
+    split_unit: patient
+    modality: ultrasound
+    task_type: cardiac_chambers
+    input_channels: 1
+    num_classes: 4
+    expected_labeled_train_units: 35
+  - name: M&Ms
+    manifest: manifests/mnms.csv
+    split_unit: patient
+    modality: MRI
+    task_type: cardiac_chambers
+    input_channels: 1
+    num_classes: 4
+    expected_labeled_train_units: 26
+  - name: ISIC2018
+    manifest: manifests/isic2018.csv
+    split_unit: case
+    modality: dermoscopy
+    task_type: skin_lesion
+    input_channels: 3
+    num_classes: 2
+    expected_labeled_train_units: 181
+  - name: AMOS2022
+    manifest: manifests/amos22.csv
+    split_unit: patient
+    modality: CT/MRI
+    task_type: multi_organ_abdomen
+    input_channels: 1
+    num_classes: 16
+    expected_labeled_train_units: 35
+  - name: DRIVE
+    manifest: manifests/drive.csv
+    split_unit: case
+    modality: fundus
+    task_type: retinal_vessels
+    input_channels: 3
+    num_classes: 2
+    labeled_train_units: 10
+    expected_labeled_train_units: 10
+
+metrics:
+  required_case_columns:
+    - dataset
+    - condition
+    - seed
+    - case_id
+    - class_id
+    - dice
+    - hd95

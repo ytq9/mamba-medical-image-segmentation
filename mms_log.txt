@@ -1,0 +1,250 @@
+Discovering GT files...
+Found 184 labeled patients.
+Example patient IDs: ['E9H1U4', 'M4P7Q6', 'E9V4Z8', 'N1P8Q9', 'J9L6N9']
+CSV columns: ['Unnamed: 0', 'patient_id', 'VendorName', 'Vendor', 'Centre', 'ED', 'ES', 'Age'] ...
+Vendor counts in CSV:
+Vendor
+B    125
+A     95
+C     75
+D     50
+
+Patients with both metadata and GT file: 184
+
+Processing all 184 patients:
+Vendor
+A    79
+B    85
+C    10
+D    10
+[1/184] A0S9V9 (Vendor=A)
+[2/184] A1D0Q7 (Vendor=B)
+[3/184] A1D9Z7 (Vendor=A)
+[4/184] A1E9Q1 (Vendor=A)
+[5/184] A1O8Z3 (Vendor=B)
+[6/184] A2C0I1 (Vendor=A)
+[7/184] A2N8V0 (Vendor=A)
+[8/184] A3B7E5 (Vendor=B)
+[9/184] A3H1O5 (Vendor=A)
+[10/184] A4B5U4 (Vendor=A)
+[11/184] A4J4S4 (Vendor=A)
+[12/184] A4U9V5 (Vendor=A)
+[13/184] A5C2D2 (Vendor=B)
+[14/184] A5E0T8 (Vendor=B)
+[15/184] A6B5G9 (Vendor=A)
+[16/184] A6D5F9 (Vendor=A)
+[17/184] A6M1Q7 (Vendor=B)
+[18/184] A7D9L8 (Vendor=A)
+[19/184] A7G0P5 (Vendor=B)
+[20/184] A7M7P8 (Vendor=A)
+[21/184] A7O4T6 (Vendor=A)
+[22/184] A8C9U8 (Vendor=B)
+[23/184] A8E1F4 (Vendor=B)
+[24/184] A9C5P4 (Vendor=B)
+[25/184] A9E3G9 (Vendor=B)
+[26/184] A9F3T5 (Vendor=C)
+[27/184] A9J5Q7 (Vendor=B)
+[28/184] A9J8W7 (Vendor=B)
+[29/184] B0H7V0 (Vendor=A)
+[30/184] B0I2Z0 (Vendor=A)
+[31/184] B0N3W8 (Vendor=B)
+[32/184] B2C2Z7 (Vendor=A)
+[33/184] B2D9M2 (Vendor=A)
+[34/184] B2D9O2 (Vendor=B)
+[35/184] B2F4K5 (Vendor=B)
+[36/184] B2G5R2 (Vendor=A)
+[37/184] B3D0N1 (Vendor=B)
+[38/184] B3O1S0 (Vendor=A)
+[39/184] B3P3R1 (Vendor=A)
+[40/184] B4O3V3 (Vendor=A)
+[41/184] B6D0U7 (Vendor=B)
+[42/184] B8H5H6 (Vendor=A)
+[43/184] B8J7R4 (Vendor=A)
+[44/184] B9E0Q1 (Vendor=A)
+[45/184] B9O1Q0 (Vendor=B)
+[46/184] C0K1P0 (Vendor=A)
+[47/184] C0S7W0 (Vendor=B)
+[48/184] C1G5Q0 (Vendor=B)
+[49/184] C1K8P5 (Vendor=A)
+[50/184] C2J0K3 (Vendor=A)
+[51/184] C2L5P7 (Vendor=B)
+[52/184] C2M6P8 (Vendor=B)
+[53/184] C3I2K3 (Vendor=B)
+[54/184] C4E9I1 (Vendor=A)
+[55/184] C4R8T7 (Vendor=B)
+[56/184] C4S8W9 (Vendor=B)
+[57/184] C5L0R0 (Vendor=D)
+[58/184] C5M4S2 (Vendor=A)
+[59/184] C6E0F9 (Vendor=A)
+[60/184] C6J5P1 (Vendor=A)
+[61/184] C8I7P7 (Vendor=B)
+[62/184] C8J7L5 (Vendor=C)
+[63/184] C8P3S7 (Vendor=A)
+[64/184] D0H9I4 (Vendor=B)
+[65/184] D0R0R9 (Vendor=A)
+[66/184] D1H6U2 (Vendor=A)
+[67/184] D1J5P6 (Vendor=A)
+[68/184] D1L4Q9 (Vendor=B)
+[69/184] D1M1S6 (Vendor=A)
+[70/184] D1R0Y5 (Vendor=B)
+[71/184] D1S5T8 (Vendor=D)
+[72/184] D2U0V0 (Vendor=C)
+[73/184] D3D4Y5 (Vendor=A)
+[74/184] D3F3O5 (Vendor=A)
+[75/184] D3F9H9 (Vendor=A)
+[76/184] D3O9U9 (Vendor=A)
+[77/184] D4M3Q2 (Vendor=A)
+[78/184] D4N6W6 (Vendor=A)
+[79/184] D5G3W8 (Vendor=C)
+[80/184] D6H6O2 (Vendor=B)
+[81/184] D6N7Q8 (Vendor=C)
+[82/184] D7M8P9 (Vendor=C)
+[83/184] D7T3V8 (Vendor=C)
+[84/184] D8E4F4 (Vendor=A)
+[85/184] D8O0W2 (Vendor=B)
+[86/184] D9L1Z3 (Vendor=A)
+[87/184] E0M3U7 (Vendor=A)
+[88/184] E0O0S0 (Vendor=A)
+[89/184] E1L8Y4 (Vendor=B)
+[90/184] E3F2U7 (Vendor=C)
+[91/184] E3T0Z2 (Vendor=B)
+[92/184] E4M2Q7 (Vendor=B)
+[93/184] E4O8P3 (Vendor=B)
+[94/184] E4W8Z7 (Vendor=B)
+[95/184] E5E6O8 (Vendor=B)
+[96/184] E5F5V7 (Vendor=B)
+[97/184] E9H1U4 (Vendor=A)
+[98/184] E9H2K7 (Vendor=B)
+[99/184] E9L1W5 (Vendor=B)
+[100/184] E9V4Z8 (Vendor=A)
+[101/184] F0J2R8 (Vendor=B)
+[102/184] F1F3I6 (Vendor=B)
+[103/184] F2H5S1 (Vendor=A)
+[104/184] F3G5K5 (Vendor=A)
+[105/184] F4K3S1 (Vendor=B)
+[106/184] F5I9Q2 (Vendor=B)
+[107/184] F6J9L9 (Vendor=D)
+[108/184] F8N2S1 (Vendor=B)
+[109/184] G0H4J3 (Vendor=B)
+[110/184] G0I6P3 (Vendor=B)
+[111/184] G1N6S7 (Vendor=B)
+[112/184] G2J1M5 (Vendor=B)
+[113/184] G2M7W4 (Vendor=B)
+[114/184] G2O2S6 (Vendor=B)
+[115/184] G4L8Z7 (Vendor=B)
+[116/184] G4S9U3 (Vendor=A)
+[117/184] G5P4U3 (Vendor=A)
+[118/184] G7I5V7 (Vendor=A)
+[119/184] G7Q2W0 (Vendor=B)
+[120/184] G8N2U5 (Vendor=B)
+[121/184] G9L0O9 (Vendor=B)
+[122/184] H0K3Q4 (Vendor=B)
+[123/184] H1I3W0 (Vendor=A)
+[124/184] H1J5W8 (Vendor=B)
+[125/184] H1M5Y6 (Vendor=B)
+[126/184] H1W2Y1 (Vendor=B)
+[127/184] H3R6S9 (Vendor=C)
+[128/184] H3U1Y1 (Vendor=B)
+[129/184] H4I2T8 (Vendor=B)
+[130/184] H5N0P0 (Vendor=A)
+[131/184] H6I0I6 (Vendor=B)
+[132/184] H6P7T1 (Vendor=D)
+[133/184] H7I4J3 (Vendor=B)
+[134/184] H7N4V9 (Vendor=B)
+[135/184] I0J5U3 (Vendor=B)
+[136/184] I2K2Y8 (Vendor=B)
+[137/184] I4L4V7 (Vendor=D)
+[138/184] I6N3P3 (Vendor=B)
+[139/184] I7T3U1 (Vendor=A)
+[140/184] I7W4Y8 (Vendor=B)
+[141/184] J1T9Y1 (Vendor=A)
+[142/184] J4J9W6 (Vendor=B)
+[143/184] J6K6P5 (Vendor=A)
+[144/184] J6M5O2 (Vendor=D)
+[145/184] J6P5T8 (Vendor=A)
+[146/184] J8R5W2 (Vendor=A)
+[147/184] J9L6N9 (Vendor=B)
+[148/184] K2S1U6 (Vendor=B)
+[149/184] K3R0Y7 (Vendor=C)
+[150/184] K4T7Y0 (Vendor=A)
+[151/184] K5K6N1 (Vendor=B)
+[152/184] K5L2U3 (Vendor=A)
+[153/184] K5M7V5 (Vendor=D)
+[154/184] K5P0Y1 (Vendor=A)
+[155/184] K9N0W0 (Vendor=B)
+[156/184] L1Q1Z5 (Vendor=B)
+[157/184] L1Q9V8 (Vendor=A)
+[158/184] L4Q2U3 (Vendor=A)
+[159/184] L5Q6T7 (Vendor=B)
+[160/184] M0P8U8 (Vendor=B)
+[161/184] M1R4S1 (Vendor=A)
+[162/184] M2P1R1 (Vendor=A)
+[163/184] M4P7Q6 (Vendor=B)
+[164/184] N1P8Q9 (Vendor=B)
+[165/184] N2O7U5 (Vendor=D)
+[166/184] N5S7Y1 (Vendor=A)
+[167/184] N7V9W9 (Vendor=B)
+[168/184] N8N9U0 (Vendor=A)
+[169/184] O0S9V7 (Vendor=A)
+[170/184] O3R8Y5 (Vendor=B)
+[171/184] O7Q7U3 (Vendor=D)
+[172/184] P0S5Y0 (Vendor=A)
+[173/184] P5R1Y4 (Vendor=A)
+[174/184] P6U0Y0 (Vendor=B)
+[175/184] P8V0Y7 (Vendor=D)
+[176/184] P9S7W2 (Vendor=B)
+[177/184] Q0U0V5 (Vendor=A)
+[178/184] Q3R9W7 (Vendor=A)
+[179/184] Q7V1Y5 (Vendor=B)
+[180/184] R4Y1Z9 (Vendor=A)
+[181/184] S1S3Z7 (Vendor=A)
+[182/184] T2T9Z9 (Vendor=A)
+[183/184] T9U9W2 (Vendor=A)
+[184/184] W5Z4Z8 (Vendor=B)
+
+Saved mms_features.csv (184 rows), mms_per_class.csv (4097 rows)
+
+=== Mean ± std per Vendor ===
+            D             L             S             B             C       
+         mean    std   mean    std   mean    std   mean    std   mean    std
+Vendor                                                                      
+A       0.938  0.010  0.946  0.009  0.639  0.154  0.428  0.029  1.039  0.101
+B       0.941  0.007  0.942  0.011  0.682  0.143  0.424  0.033  1.104  0.161
+C       0.934  0.009  0.931  0.012  0.742  0.117  0.394  0.030  1.096  0.220
+D       0.940  0.008  0.960  0.010  0.739  0.127  0.418  0.047  1.067  0.143
+
+=== Mean per Pathology (sanity check) ===
+               D      L      S      B      C
+Pathology                                   
+AHS        0.936  0.940  0.752  0.432  0.958
+ARV        0.939  0.951  0.629  0.430  1.014
+DCM        0.941  0.942  0.652  0.444  1.069
+HCM        0.940  0.949  0.683  0.407  1.070
+HHD        0.939  0.930  0.806  0.391  1.262
+NOR        0.937  0.942  0.667  0.420  1.074
+Other      0.927  0.933  0.788  0.373  1.250
+
+=== Pairwise correlations ===
+       D      L      S      B      C
+D  1.000  0.228  0.068  0.145  0.061
+L  0.228  1.000 -0.268  0.330  0.074
+S  0.068 -0.268  1.000 -0.236 -0.090
+B  0.145  0.330 -0.236  1.000  0.036
+C  0.061  0.074 -0.090  0.036  1.000
+[OK] All |rho|<0.85.
+
+PCA: PC1=32.9%, PC2=21.4%, sum=54.2%
+PC1: {'D': np.float64(0.309), 'L': np.float64(0.601), 'S': np.float64(-0.448), 'B': np.float64(0.553), 'C': np.float64(0.192)}
+PC2: {'D': np.float64(0.79), 'L': np.float64(0.081), 'S': np.float64(0.606), 'B': np.float64(-0.031), 'C': np.float64(-0.022)}
+
+=== Per-class mean (D, L, B) ===
+                    D             L             B       
+                 mean    std   mean    std   mean    std
+class_id organ                                          
+1        LV     0.946  0.030  0.909  0.046  0.067  0.034
+2        Myo    0.959  0.014  0.817  0.069  0.800  0.119
+3        RV     0.880  0.049  0.891  0.057  0.394  0.103
+
+Saved mms_pca.png
+Saved mms_per_class.png
+M&Ms mean:   D=0.939, L=0.944, S=0.670, B=0.424, C=1.073
